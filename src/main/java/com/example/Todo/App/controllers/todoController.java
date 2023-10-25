@@ -3,12 +3,10 @@ package com.example.Todo.App.controllers;
 
 import com.example.Todo.App.Models.TodoClass;
 import com.example.Todo.App.Repository.TodoRepoinf;
-import com.example.Todo.App.Services.TodoServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
