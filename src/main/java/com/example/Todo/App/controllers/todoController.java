@@ -18,7 +18,7 @@ import java.util.Optional;
 public class todoController {
 
 @Autowired
-TodoService todoService;
+private TodoService todoService;
 
     @GetMapping
 
@@ -31,14 +31,14 @@ TodoService todoService;
         return todo.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<TodoClass> addTodo(@RequestBody TodoClass todo){
         return new ResponseEntity<>(todoService.addTodo(todo),HttpStatusCode.valueOf(200));
     }
 
-    @PutMapping
-    public ResponseEntity<TodoClass> updateTodo(@RequestBody Long id,TodoClass todo){
-        Optional<TodoClass> currTodo=todoService.getTodoByid(id);
+    @PutMapping("/update")
+    public ResponseEntity<TodoClass> updateTodo(@RequestBody TodoClass todo){
+        Optional<TodoClass> currTodo=todoService.getTodoByid(todo.getId());
         if(currTodo.isPresent()){
             currTodo.get().setTitle(todo.getTitle());
             currTodo.get().setStatus(todo.getStatus());
@@ -50,7 +50,7 @@ TodoService todoService;
         }
 
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<TodoClass> deleteById(@PathVariable Long id){
         Optional<TodoClass> todo=todoService.getTodoByid(id);
         if(todo.isPresent()){
