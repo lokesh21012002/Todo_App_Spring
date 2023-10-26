@@ -28,7 +28,13 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public TodoClass getTodoByid(Long id) {
-        return todoRepoinf.findById(id).get();
+        Optional<TodoClass> tmp=todoRepoinf.findById(id);
+        if(tmp.isEmpty()){
+            return null;
+        }
+
+
+        return tmp.get();
     }
 
     @Override
@@ -41,6 +47,18 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public void deleteById(Long id) {
         todoRepoinf.deleteById(id);
+
+
+
+//        Optional<TodoClass> tmp=todoRepoinf.findById(id);
+//        if(tmp.isEmpty()){
+//            return "Todo does't exist";
+//        }
+//        todoRepoinf.deleteById(id);
+//
+//
+//        return "Todo deleted sucessfully";
+
 
 
     }
