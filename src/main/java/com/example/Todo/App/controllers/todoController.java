@@ -4,6 +4,9 @@ package com.example.Todo.App.controllers;
 import com.example.Todo.App.Models.TodoClass;
 import com.example.Todo.App.Repository.TodoRepoinf;
 import com.example.Todo.App.Services.TodoService;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -21,9 +24,13 @@ public class todoController {
 @Autowired
 private TodoService todoService;
 
+private final Logger LOGGER= LoggerFactory.getLogger(todoController.class);
+
+
     @GetMapping
 
     public ResponseEntity<List<TodoClass>> getAllTodos(){
+        LOGGER.info("Inside getAllTodos method");
         return new ResponseEntity<>(todoService.getAllTodos(), HttpStatusCode.valueOf(200));
     }
     @GetMapping("/{id}")
@@ -48,11 +55,12 @@ private TodoService todoService;
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addTodo(@RequestBody TodoClass todo){
+    public ResponseEntity<?> addTodo( @Valid @RequestBody TodoClass todo){
         try {
             return new ResponseEntity<>(todoService.addTodo(todo), HttpStatusCode.valueOf(200));
         }
         catch (Exception e){
+            LOGGER.info(e.getMessage());
             return  new ResponseEntity<>(e,HttpStatusCode.valueOf(404));
 
         }
@@ -105,6 +113,7 @@ private TodoService todoService;
             }
             }
         catch (Exception e){
+            LOGGER.info(e.getMessage());
             return new ResponseEntity<>("Not Found",HttpStatusCode.valueOf(404));
 
         }
@@ -122,6 +131,7 @@ private TodoService todoService;
             }
         }
         catch (Exception e){
+            LOGGER.info(e.getMessage());
             return new ResponseEntity<>("Not Found",HttpStatusCode.valueOf(404));
 
         }
