@@ -9,9 +9,15 @@ import java.util.Optional;
 public interface TodoService {
     List<TodoClass> getAllTodos();
 
-    Optional<TodoClass> getTodoByid(Long id);
+    TodoClass getTodoByid(Long id);
 
     TodoClass addTodo(TodoClass todo);
 
     void deleteById(Long id);
+
+    TodoClass updateTodo(Long id, TodoClass todo);
+
+    List<TodoClass> findTodoByTitle(String title);
+
+    List<TodoClass> findTodoByStatus(String status);
 }

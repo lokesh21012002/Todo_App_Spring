@@ -27,8 +27,15 @@ private TodoService todoService;
     }
     @GetMapping("/{id}")
     public ResponseEntity<TodoClass> getTodoById(@PathVariable  Long id){
-        Optional<TodoClass> todo = todoService.getTodoByid(id);
-        return todo.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return new ResponseEntity<>(todoService.getTodoByid(id),HttpStatusCode.valueOf(200));
+
+
+
+
+
+
+//        Optional<TodoClass> todo = todoService.getTodoByid(id);
+//        return todo.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/add")
@@ -36,30 +43,47 @@ private TodoService todoService;
         return new ResponseEntity<>(todoService.addTodo(todo),HttpStatusCode.valueOf(200));
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<TodoClass> updateTodo(@RequestBody TodoClass todo){
-        Optional<TodoClass> currTodo=todoService.getTodoByid(todo.getId());
-        if(currTodo.isPresent()){
-            currTodo.get().setTitle(todo.getTitle());
-            currTodo.get().setStatus(todo.getStatus());
-            currTodo.get().setDate(todo.getDate());
-            return new ResponseEntity<>(todoService.addTodo(currTodo.get()),HttpStatusCode.valueOf(200));
-        }
-        else{
-            return new ResponseEntity<>(HttpStatusCode.valueOf(404));
-        }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<TodoClass> updateTodo(@PathVariable Long id, @RequestBody TodoClass todo){
+
+        return  new ResponseEntity<>(todoService.updateTodo(id,todo),HttpStatusCode.valueOf(200));
+
+//        Optional<TodoClass> currTodo=todoService.getTodoByid(todo.getId());
+//        if(currTodo.isPresent()){
+//            currTodo.get().setTitle(todo.getTitle());
+//            currTodo.get().setStatus(todo.getStatus());
+//            currTodo.get().setDate(todo.getDate());
+//            return new ResponseEntity<>(todoService.addTodo(currTodo.get()),HttpStatusCode.valueOf(200));
+//        }
+//        else{
+//            return new ResponseEntity<>(HttpStatusCode.valueOf(404));
+//        }
 
     }
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<TodoClass> deleteById(@PathVariable Long id){
-        Optional<TodoClass> todo=todoService.getTodoByid(id);
-        if(todo.isPresent()){
+    public ResponseEntity<String> deleteById(@PathVariable Long id){
+        TodoClass todo=todoService.getTodoByid(id);
+        if(todo!=null){
             todoService.deleteById(id);
-            return new ResponseEntity<>(HttpStatusCode.valueOf(200));
+            return new ResponseEntity<>("Deleted sucessfully",HttpStatusCode.valueOf(200));
         }
         else{
-            return new ResponseEntity<>(HttpStatusCode.valueOf(404));
+            return new ResponseEntity<>("Not Found",HttpStatusCode.valueOf(404));
         }
+    }
+
+    @GetMapping("/title/{title}")
+
+    public ResponseEntity<List<TodoClass>> findTodoByTitle(@PathVariable String title){
+        return new ResponseEntity<>(todoService.findTodoByTitle(title),HttpStatusCode.valueOf(200));
+
+    }
+
+    @GetMapping("/status/{status}")
+
+    public ResponseEntity<List<TodoClass>> findTodoByStatus(@PathVariable String status){
+        return new ResponseEntity<>(todoService.findTodoByStatus(status),HttpStatusCode.valueOf(200));
+
     }
 
 
