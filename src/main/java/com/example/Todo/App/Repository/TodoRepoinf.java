@@ -12,8 +12,8 @@ import java.util.List;
 public interface TodoRepoinf extends JpaRepository<TodoClass,Long> {
 
 
-    List<TodoClass> findByTitle(String title);
-    List<TodoClass> findByStatus(String status);
+    List<TodoClass> findByTitleIgnoreCase(String title);
+    List<TodoClass> findByStatusIgnoreCase(String status);
 
 
 

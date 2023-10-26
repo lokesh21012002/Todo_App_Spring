@@ -17,7 +17,7 @@ public interface TodoService {
 
     TodoClass updateTodo(Long id, TodoClass todo);
 
-    List<TodoClass> findTodoByTitle(String title);
+    List<TodoClass> findTodoByTitleIgnoreCase(String title);
 
-    List<TodoClass> findTodoByStatus(String status);
+    List<TodoClass> findTodoByStatusIgnoreCase(String status);
 }

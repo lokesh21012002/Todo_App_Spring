@@ -97,8 +97,8 @@ private TodoService todoService;
 
     public ResponseEntity<?> findTodoByTitle(@PathVariable String title){
         try {
-            if(!todoService.findTodoByTitle(title).isEmpty()) {
-                return new ResponseEntity<>(todoService.findTodoByTitle(title), HttpStatusCode.valueOf(200));
+            if(!todoService.findTodoByTitleIgnoreCase(title).isEmpty()) {
+                return new ResponseEntity<>(todoService.findTodoByTitleIgnoreCase(title), HttpStatusCode.valueOf(200));
             }
             else{
                 return new ResponseEntity<>("Not Found",HttpStatusCode.valueOf(404));
@@ -114,8 +114,8 @@ private TodoService todoService;
 
     public ResponseEntity<?> findTodoByStatus(@PathVariable String status){
         try {
-            if(!todoService.findTodoByStatus(status).isEmpty()) {
-                return new ResponseEntity<>(todoService.findTodoByStatus(status), HttpStatusCode.valueOf(200));
+            if(!todoService.findTodoByStatusIgnoreCase(status).isEmpty()) {
+                return new ResponseEntity<>(todoService.findTodoByStatusIgnoreCase(status), HttpStatusCode.valueOf(200));
             }
             else{
                 return new ResponseEntity<>("Not Found",HttpStatusCode.valueOf(404));

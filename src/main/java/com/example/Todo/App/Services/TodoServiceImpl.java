@@ -110,15 +110,15 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<TodoClass> findTodoByTitle(String title) {
-        return todoRepoinf.findByTitle(title);
+    public List<TodoClass> findTodoByTitleIgnoreCase(String title) {
+        return todoRepoinf.findByTitleIgnoreCase(title);
 
 
     }
 
     @Override
-    public List<TodoClass> findTodoByStatus(String status) {
-        return todoRepoinf.findByStatus(status);
+    public List<TodoClass> findTodoByStatusIgnoreCase(String status) {
+        return todoRepoinf.findByStatusIgnoreCase(status);
 
     }
 
