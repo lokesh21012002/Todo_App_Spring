@@ -1,21 +1,18 @@
 package com.example.Todo.App.controllers;
 
 
+import com.example.Todo.App.Exceptions.TodoNotFoundException;
 import com.example.Todo.App.Models.TodoClass;
-import com.example.Todo.App.Repository.TodoRepoinf;
 import com.example.Todo.App.Services.TodoService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/todos")
@@ -34,7 +31,7 @@ private final Logger LOGGER= LoggerFactory.getLogger(todoController.class);
         return new ResponseEntity<>(todoService.getAllTodos(), HttpStatusCode.valueOf(200));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<?> getTodoById(@PathVariable  Long id){
+    public ResponseEntity<?> getTodoById(@PathVariable  Long id) throws TodoNotFoundException {
 //        return new ResponseEntity<>(todoService.getTodoByid(id),HttpStatusCode.valueOf(200));
 
         TodoClass todo=todoService.getTodoByid(id);
@@ -67,7 +64,7 @@ private final Logger LOGGER= LoggerFactory.getLogger(todoController.class);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateTodo(@PathVariable Long id, @RequestBody TodoClass todo){
+    public ResponseEntity<?> updateTodo(@PathVariable Long id, @RequestBody TodoClass todo) throws TodoNotFoundException {
         TodoClass todoDb=todoService.getTodoByid(id);
         if(todoDb!=null) {
 
@@ -90,7 +87,7 @@ private final Logger LOGGER= LoggerFactory.getLogger(todoController.class);
 
     }
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable Long id){
+    public ResponseEntity<String> deleteById(@PathVariable Long id) throws TodoNotFoundException {
         TodoClass todo=todoService.getTodoByid(id);
         if(todo!=null){
             todoService.deleteById(id);

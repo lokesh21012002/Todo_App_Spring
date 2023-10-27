@@ -1,5 +1,6 @@
 package com.example.Todo.App.Services;
 
+import com.example.Todo.App.Exceptions.TodoNotFoundException;
 import com.example.Todo.App.Models.TodoClass;
 import com.example.Todo.App.Repository.TodoRepoinf;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,16 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public TodoClass getTodoByid(Long id) {
+    public TodoClass getTodoByid(Long id) throws TodoNotFoundException {
         Optional<TodoClass> tmp=todoRepoinf.findById(id);
-        if(tmp.isEmpty()){
-            return null;
+        if(!tmp.isPresent()){
+            throw  new TodoNotFoundException("Todo not found ");
         }
-
-
+//        if(tmp.isEmpty()){
+//            return null;
+//        }
+//
+//
         return tmp.get();
     }
 

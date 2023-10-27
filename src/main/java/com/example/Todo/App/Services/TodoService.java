@@ -1,15 +1,14 @@
 package com.example.Todo.App.Services;
 
+import com.example.Todo.App.Exceptions.TodoNotFoundException;
 import com.example.Todo.App.Models.TodoClass;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TodoService {
     List<TodoClass> getAllTodos();
 
-    TodoClass getTodoByid(Long id);
+    TodoClass getTodoByid(Long id) throws TodoNotFoundException;
 
     TodoClass addTodo(TodoClass todo);
 
