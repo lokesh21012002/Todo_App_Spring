@@ -1,4 +1,26 @@
+
+server:
+  port:8081
+
 spring:
+  profiles:
+    active: dev
+
+
+
+
+
+
+
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
@@ -10,3 +32,44 @@ spring:
 welcome:
   message:
     config: Hello World
+
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: qa
+
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/todo_app_qa
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+welcome:
+  message:
+    config: Hello World
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/todo_app_prod
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+welcome:
+  message:
+    config: Hello World
+
