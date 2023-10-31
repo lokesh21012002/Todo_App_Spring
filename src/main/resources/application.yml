@@ -33,6 +33,15 @@ welcome:
   message:
     config: Hello World
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+
+
+
 
 
 ---
